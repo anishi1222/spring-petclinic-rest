@@ -16,10 +16,10 @@
 ## 前提条件
 
 - Java 17 以上
-- Maven 3.9 以上
+- Maven 3.9 以上（Gradleでもかまいませんが、説明はMavenで行います）
 - Git
 - GitHub アカウント
-- IDE (IntelliJ IDEA, Eclipse, VS Code など)
+- VS Code （他のIDEでもかまいませんが、説明はVS Codeで行います）
 - **GitHub Copilot サブスクリプション**
 
 ## エージェントベース開発フロー
