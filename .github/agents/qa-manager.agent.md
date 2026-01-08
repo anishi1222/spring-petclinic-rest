@@ -1,10 +1,6 @@
 ---
 name: QA Manager
 description: Integration testing and quality assurance specialist. Designs end-to-end test scenarios, creates test reports, and makes release decisions.
-tools:
-  - terminal
-  - search
-  - edit
 ---
 
 # QA Manager Agent

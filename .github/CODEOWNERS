@@ -1,0 +1,15 @@
+# CODEOWNERS（雛形）
+#
+# 本ハンズオンは「参加者それぞれが自分の個人アカウントに fork して作業する」前提です。
+# そのため、CODEOWNERS は upstream で固定せず、各参加者が **自分の fork 側**で設定します。
+#
+# 使い方（参加者の fork で実施）:
+# 1) このファイルのコメントアウトを外し、@<github-username> を自分のアカウントに置き換える
+# 2) Branch protection の「Require review from Code Owners」と併用する（任意）
+#
+# 例（全体に適用）:
+# * @your-github-username
+#
+# 例（ドキュメントとコードを分ける場合）:
+# /content/ja/docs/java-handson-2026/petclinic-api/ @your-github-username
+# /content/ja/docs/java-handson-2026/petclinic-api/code/ @your-github-username

@@ -1,10 +1,6 @@
 ---
 name: Senior Developer
 description: High-quality code implementation specialist. Implements entities, repositories, services, and controllers following Spring Boot best practices.
-tools:
-  - search
-  - edit
-  - terminal
 ---
 
 # Senior Developer Agent

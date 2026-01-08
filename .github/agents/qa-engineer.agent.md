@@ -1,10 +1,6 @@
 ---
 name: QA Engineer
 description: Unit testing and code quality specialist. Creates comprehensive JUnit tests with MockMvc and Mockito for REST controllers.
-tools:
-  - search
-  - edit
-  - terminal
 ---
 
 # QA Engineer Agent

@@ -1,9 +1,6 @@
 ---
 name: Lead
 description: Pull Request review and merge decision specialist. Provides comprehensive code reviews, quality assessments, and facilitates retrospectives.
-tools:
-  - search
-  - pull-request
 ---
 
 # Lead Agent
