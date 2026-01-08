@@ -2,17 +2,66 @@
 
 このガイドでは、ペットホテル機能追加ハンズオンで使用する各エージェントの詳細と、効果的なプロンプト例を提供します。
 
+## 工程別ワークフロー
+
+このハンズオンは、7つの工程（Phase）に分かれており、各工程で以下の流れを繰り返します：
+
+```
+1. Issue Form で Issue 作成（前工程の Issue 番号を参照）
+   ↓
+2. 担当エージェントと対話
+   ↓
+3. 設計書やコードを作成
+   ↓
+4. 受け入れ基準を確認
+   ↓
+5. Issue をクローズ
+   ↓
+6. 次工程の Issue を作成
+```
+
+### 工程間の依存関係
+
+各工程は前工程の完了を前提としています：
+
+- **Phase 1 (要求開発)**: 前提なし、最初の工程
+- **Phase 2 (基本設計)**: Phase 1 完了が必要
+- **Phase 3 (詳細設計)**: Phase 2 完了が必要
+- **Phase 4 (実装)**: Phase 3 完了が必要
+- **Phase 5 (単体テスト)**: Phase 4 完了が必要
+- **Phase 6 (統合テスト)**: Phase 5 完了が必要
+- **Phase 7 (受け入れ/レビュー)**: Phase 6 完了が必要
+
+### Issue 番号の記録
+
+各 Issue には必ず以下を記録します：
+
+- **現在の Phase**: Issue タイトルに `[Phase X]` を含める
+- **前工程 Issue**: Issue 本文に前工程の Issue 番号を記載
+- **要求開発 Issue**: 全工程で Phase 1 の Issue 番号を記載
+
+例：
+```
+Phase 3 Issue:
+- 前工程 Issue: #2 (Phase 2: 基本設計)
+- 要求開発 Issue: #1 (Phase 1: 要求開発)
+```
+
+---
+
 ## エージェント一覧
 
-| エージェント | ロール | 主な用途 | プロンプト識別子 |
-|------------|--------|---------|---------------|
-| PM | プロダクトマネージャー | 要求開発、Issue作成 | `@pm` |
-| Architect | ソフトウェアアーキテクト | 基本設計、エンティティ設計 | `@architect` |
-| Tech Lead | テックリード | 詳細設計、API/DB設計 | `@techlead` |
-| Senior Dev | シニアデベロッパー | コード実装 | `@senior-dev` |
-| QA Engineer | QA エンジニア | 単体テスト作成 | `@qa-engineer` |
-| QA Manager | QA マネージャー | 統合・総合テスト | `@qa-manager` |
-| Lead | リード | PR作成、レビュー、マージ判断 | `@lead` |
+| エージェント | ロール | 主な用途 | プロンプト識別子 | 対応Issue Form |
+|------------|--------|---------|---------------|---------------|
+| PM | プロダクトマネージャー | 要求開発、Issue作成 | `@pm` | `01_requirement.yml` |
+| Architect | ソフトウェアアーキテクト | 基本設計、エンティティ設計 | `@architect` | `02_basic_design.yml` |
+| Tech Lead | テックリード | 詳細設計、API/DB設計 | `@techlead` | `03_detailed_design.yml` |
+| Senior Dev | シニアデベロッパー | コード実装 | `@senior-dev` | `04_implementation.yml` |
+| QA Engineer | QA エンジニア | 単体テスト作成 | `@qa-engineer` | `05_unit_test.yml` |
+| QA Manager | QA マネージャー | 統合・総合テスト | `@qa-manager` | `06_integration_test.yml` |
+| Lead | リード | PR作成、レビュー、マージ判断 | `@lead` | `07_acceptance_review.yml` |
+
+**重要**: 各エージェントは対応する工程（Phase）の Issue Form と連携して使用します。
 
 ---
 
@@ -26,8 +75,13 @@
 
 ### 使用タイミング
 - セクション1: 要求開発（30分）
+- Phase 1 Issue 作成時
 - プロジェクト開始時
 - 要件が曖昧な時
+
+**対応する Issue Form**: `.github/ISSUE_TEMPLATE/01_requirement.yml`
+
+**次のステップ**: Phase 1 完了後、Phase 2（基本設計）の Issue を作成
 
 ### プロンプトテンプレート
 
@@ -106,8 +160,15 @@
 
 ### 使用タイミング
 - セクション2: 基本設計（30分）
+- Phase 2 Issue 作成時
 - システム構造を決定する時
 - エンティティ設計時
+
+**対応する Issue Form**: `.github/ISSUE_TEMPLATE/02_basic_design.yml`
+
+**前提条件**: Phase 1（要求開発）Issue が完了していること
+
+**次のステップ**: Phase 2 完了後、Phase 3（詳細設計）の Issue を作成
 
 ### プロンプトテンプレート
 
@@ -190,8 +251,15 @@
 
 ### 使用タイミング
 - セクション3: 詳細設計（30分）
+- Phase 3 Issue 作成時
 - API設計時
 - データベーススキーマ設計時
+
+**対応する Issue Form**: `.github/ISSUE_TEMPLATE/03_detailed_design.yml`
+
+**前提条件**: Phase 2（基本設計）Issue が完了していること
+
+**次のステップ**: Phase 3 完了後、Phase 4（実装）の Issue を作成
 
 ### プロンプトテンプレート
 
@@ -278,7 +346,14 @@ CREATE TABLE文とサンプルINSERT文を生成してください。
 
 ### 使用タイミング
 - セクション4: 実装（90分）
+- Phase 4 Issue 作成時
 - すべてのコード実装フェーズ
+
+**対応する Issue Form**: `.github/ISSUE_TEMPLATE/04_implementation.yml`
+
+**前提条件**: Phase 3（詳細設計）Issue が完了していること
+
+**次のステップ**: Phase 4 完了後、Phase 5（単体テスト）の Issue を作成
 
 ### プロンプトテンプレート
 
@@ -383,7 +458,14 @@ CREATE TABLE文とサンプルINSERT文を生成してください。
 
 ### 使用タイミング
 - セクション5: 単体テスト（30分）
+- Phase 5 Issue 作成時
 - テストコード作成時
+
+**対応する Issue Form**: `.github/ISSUE_TEMPLATE/05_unit_test.yml`
+
+**前提条件**: Phase 4（実装）Issue が完了していること
+
+**次のステップ**: Phase 5 完了後、Phase 6（統合テスト）の Issue を作成
 
 ### プロンプトテンプレート
 
@@ -409,6 +491,24 @@ CREATE TABLE文とサンプルINSERT文を生成してください。
 完全なJavaコードを生成してください。
 ```
 
+#### テストカバレッジ確認プロンプト
+```
+@qa-engineer テストを実行し、カバレッジレポートを確認してください：
+
+【コマンド】
+mvn test
+mvn jacoco:report
+
+【確認項目】
+- target/site/jacoco/index.html を開いてカバレッジを確認
+- Line Coverage 85%以上を達成しているか
+- Branch Coverage 66%以上を達成しているか
+- カバーされていない箇所を特定し、追加テストが必要か評価
+
+【レポート】
+カバレッジの現状と改善が必要な箇所を報告してください。
+```
+
 #### エッジケース洗い出しプロンプト
 ```
 @qa-engineer 以下の機能に対して、テストすべきエッジケースをリストアップしてください：
@@ -429,6 +529,7 @@ CREATE TABLE文とサンプルINSERT文を生成してください。
 - エッジケースのリスト
 - テストカバレッジ分析
 - モック設定
+- カバレッジレポートの評価
 
 ### ハンズオンでの具体例
 ```
@@ -468,7 +569,14 @@ VisitRestControllerTests.java のパターンに従ってください。
 
 ### 使用タイミング
 - セクション6: 統合・総合テスト（30分）
+- Phase 6 Issue 作成時
 - システムテスト実施時
+
+**対応する Issue Form**: `.github/ISSUE_TEMPLATE/06_integration_test.yml`
+
+**前提条件**: Phase 5（単体テスト）Issue が完了していること
+
+**次のステップ**: Phase 6 完了後、Phase 7（受け入れ/レビュー）の Issue を作成
 
 ### プロンプトテンプレート
 
@@ -508,6 +616,7 @@ VisitRestControllerTests.java のパターンに従ってください。
 【実施したテスト】
 - <テスト種別1>: <結果>
 - <テスト種別2>: <結果>
+- テストカバレッジ: Line Coverage XX%, Branch Coverage YY%
 
 【不具合】
 <不具合リスト または「なし」>
@@ -516,10 +625,28 @@ VisitRestControllerTests.java のパターンに従ってください。
 <総合評価>
 ```
 
+#### カバレッジ総合評価プロンプト
+```
+@qa-manager 統合テスト完了後、カバレッジレポートの総合評価をしてください：
+
+【コマンド】
+mvn clean test jacoco:report
+
+【評価項目】
+- Line Coverage が 85% 以上達成されているか
+- Branch Coverage が 66% 以上達成されているか
+- 新規実装コードのカバレッジは十分か
+- カバーされていない重要な箇所はないか
+
+【レポート】
+カバレッジの最終評価とリリース可否判断を含めて報告してください。
+```
+
 ### 期待される出力
 - テストシナリオ
 - curlスクリプト
 - テスト報告書
+- カバレッジ総合評価
 - リリース可否判断
 
 ### ハンズオンでの具体例
@@ -552,7 +679,14 @@ VisitRestControllerTests.java のパターンに従ってください。
 
 ### 使用タイミング
 - セクション7: 受け入れとマージ（30分）
+- Phase 7 Issue 作成時
 - PR作成時、レビュー時
+
+**対応する Issue Form**: `.github/ISSUE_TEMPLATE/07_acceptance_review.yml`
+
+**前提条件**: Phase 6（統合テスト）Issue が完了していること
+
+**最終ステップ**: 全 Phase 完了後、PR をマージし全 Issue をクローズ
 
 ### プロンプトテンプレート
 

@@ -1,0 +1,241 @@
+name: "工程6: 統合テスト"
+description: システム全体の統合テストと品質保証
+title: "[統合テスト] "
+labels: ["phase:integration-test", "status:testing"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 工程6: 統合テスト
+        この工程では、システム全体の統合テストを実施し、品質を保証します。
+        担当エージェント: **QA Manager**
+
+  - type: input
+    id: unit_test_issue
+    attributes:
+      label: 単体テストIssue番号
+      description: 前工程（単体テスト）のIssue番号
+      placeholder: "#127"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: pre_test_verification
+    attributes:
+      label: テスト前検証
+      options:
+        - label: "mvn clean install が成功する"
+        - label: 全ての単体テストがパスする
+        - label: コンパイルエラーがない
+        - label: ビルドが SUCCESS で完了する
+
+  - type: checkboxes
+    id: application_startup
+    attributes:
+      label: アプリケーション起動確認
+      options:
+        - label: "mvn spring-boot:run でアプリケーションが起動する"
+        - label: ポート9966でリッスンしている
+        - label: "http://localhost:9966/petclinic にアクセスできる"
+        - label: 起動時エラーがない
+
+  - type: textarea
+    id: api_integration_tests
+    attributes:
+      label: API統合テストシナリオ
+      description: curlまたはPostmanで実行するテストケース
+      placeholder: |
+        ### Test Case 1: 新規リソース作成
+        ```bash
+        curl -u admin:admin -X POST http://localhost:9966/petclinic/api/pethotelstays \
+          -H "Content-Type: application/json" \
+          -d '{"checkInDate":"2024-01-15","checkOutDate":"2024-01-20","roomNumber":"101","status":"RESERVED","pet":{"id":1}}'
+        ```
+        Expected: 201 CREATED, Location header, response body
+        
+        ### Test Case 2: 作成したリソース取得
+        ```bash
+        curl -u admin:admin http://localhost:9966/petclinic/api/pethotelstays/{id}
+        ```
+        Expected: 200 OK, JSON response
+        
+        ### Test Case 3: リソース更新
+        ```bash
+        curl -u admin:admin -X PUT http://localhost:9966/petclinic/api/pethotelstays/{id} \
+          -H "Content-Type: application/json" \
+          -d '{"checkInDate":"2024-01-15","checkOutDate":"2024-01-22","roomNumber":"101","status":"CHECKED_IN","pet":{"id":1}}'
+        ```
+        Expected: 200 OK, updated data
+        
+        ### Test Case 4: リソース削除
+        ```bash
+        curl -u admin:admin -X DELETE http://localhost:9966/petclinic/api/pethotelstays/{id}
+        ```
+        Expected: 204 NO_CONTENT
+        
+        ### Test Case 5: 削除確認
+        ```bash
+        curl -u admin:admin http://localhost:9966/petclinic/api/pethotelstays/{id}
+        ```
+        Expected: 404 NOT_FOUND
+      value: |
+        ### Test Case 1: 
+        ```bash
+        
+        ```
+        Expected: 
+        
+        ### Test Case 2: 
+        ```bash
+        
+        ```
+        Expected: 
+    validations:
+      required: true
+
+  - type: textarea
+    id: regression_tests
+    attributes:
+      label: リグレッションテスト
+      description: 既存機能が壊れていないことの確認
+      placeholder: |
+        ```bash
+        # Pet API確認
+        curl -u admin:admin http://localhost:9966/petclinic/api/pets
+        Expected: 200 OK
+        
+        # Visit API確認
+        curl -u admin:admin http://localhost:9966/petclinic/api/visits
+        Expected: 200 OK
+        
+        # Owner API確認
+        curl -u admin:admin http://localhost:9966/petclinic/api/owners
+        Expected: 200 OK
+        ```
+      value: |
+        ```bash
+        # 既存API確認
+        ```
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: database_verification
+    attributes:
+      label: データベース検証
+      options:
+        - label: テーブルが正しく作成されている
+        - label: 外部キー制約が機能している
+        - label: データが正しく永続化される
+        - label: インデックスが作成されている
+        - label: テストデータが投入されている
+
+  - type: textarea
+    id: test_results_summary
+    attributes:
+      label: テスト結果サマリー
+      description: 各テストケースの実行結果
+      placeholder: |
+        | Test Case | Endpoint | Expected | Actual | Status |
+        |-----------|----------|----------|--------|--------|
+        | Create | POST /api/pethotelstays | 201 CREATED | 201 CREATED | ✅ PASS |
+        | Read | GET /api/pethotelstays/{id} | 200 OK | 200 OK | ✅ PASS |
+        | Update | PUT /api/pethotelstays/{id} | 200 OK | 200 OK | ✅ PASS |
+        | Delete | DELETE /api/pethotelstays/{id} | 204 NO_CONTENT | 204 NO_CONTENT | ✅ PASS |
+        | List | GET /api/pethotelstays | 200 OK | 200 OK | ✅ PASS |
+      value: |
+        | Test Case | Endpoint | Expected | Actual | Status |
+        |-----------|----------|----------|--------|--------|
+        | | | | | |
+    validations:
+      required: true
+
+  - type: textarea
+    id: defects_found
+    attributes:
+      label: 発見された不具合
+      description: テスト中に見つかった問題（なければ「なし」）
+      placeholder: |
+        なし
+        
+        または
+        
+        1. [重大度] 問題の説明
+        2. [重大度] 問題の説明
+      value: |
+        なし
+
+  - type: checkboxes
+    id: quality_metrics
+    attributes:
+      label: 品質メトリクス
+      options:
+        - label: コード品質：既存パターンに従っている
+        - label: テストカバレッジレポート（mvn jacoco:report）を生成し確認
+        - label: "Line Coverage 85%以上、Branch Coverage 66%以上達成"
+        - label: テストカバレッジ：包括的
+        - label: ドキュメント：完全
+        - label: セキュリティ：適切に設定されている
+        - label: パフォーマンス：許容範囲内
+
+  - type: dropdown
+    id: risk_assessment
+    attributes:
+      label: リスク評価
+      description: リリースのリスクレベル
+      options:
+        - 低リスク：全テストパス、リグレッションなし
+        - 中リスク：一部の問題あり、対応可能
+        - 高リスク：重大な問題あり、リリース不可
+    validations:
+      required: true
+
+  - type: textarea
+    id: recommendations
+    attributes:
+      label: 改善提案
+      description: 今後の改善のための提案
+      placeholder: |
+        - パフォーマンステストの追加を検討
+        - エラーメッセージの改善
+        - ドキュメントの充実
+      value: |
+        特になし
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: 受け入れ基準
+      value: |
+        - [ ] mvn clean install が成功する
+        - [ ] アプリケーションが正常に起動する
+        - [ ] 全ての統合テストがパスする
+        - [ ] リグレッションテストがパスする
+        - [ ] データベース検証が完了している
+        - [ ] テストカバレッジレポート確認完了（Line 85%以上、Branch 66%以上）
+        - [ ] 既存機能に影響がない
+        - [ ] 重大な不具合が存在しない
+    validations:
+      required: true
+
+  - type: dropdown
+    id: release_decision
+    attributes:
+      label: リリース判定
+      description: この機能をリリース可能か
+      options:
+        - "✅ 承認：リリース可能"
+        - "⚠️ 条件付き承認：修正後にリリース可能"
+        - "❌ 却下：リリース不可"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 次のステップ
+        統合テストが完了し、リリース判定が「承認」の場合、次の工程「受け入れ/レビュー」のIssueを作成してください。
+        次の工程では、Tech Leadによる最終レビューとPRのマージ判断を行います。

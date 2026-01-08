@@ -1,0 +1,128 @@
+name: "工程1: 要求開発"
+description: 機能の要求開発とユーザーストーリーの定義
+title: "[要求] "
+labels: ["phase:requirement", "status:planning"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 工程1: 要求開発
+        この工程では、機能の要件を明確化し、ユーザーストーリーと受け入れ基準を定義します。
+        担当エージェント: **Product Manager (PM)**
+
+  - type: input
+    id: feature_name
+    attributes:
+      label: 機能名
+      description: 追加する機能の名称
+      placeholder: 例：ペットホテル予約機能
+    validations:
+      required: true
+
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+      description: 機能の概要を簡潔に説明してください
+      placeholder: この機能によって実現したいことを記述
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景
+      description: なぜこの機能が必要なのか、ビジネス上の背景を説明してください
+      placeholder: |
+        例：
+        - お客様からの要望が多い
+        - 競合他社が同様の機能を提供している
+        - 業務効率化につながる
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_stories
+    attributes:
+      label: ユーザーストーリー
+      description: "「〜として、〜したい、なぜなら〜」の形式で記述"
+      placeholder: |
+        - ペットオーナーとして、ペットを預ける予約をしたい、なぜなら旅行中にペットの世話をしてもらいたいから
+        - クリニックスタッフとして、予約状況を確認したい、なぜなら部屋の空き状況を管理したいから
+      value: |
+        - 
+        - 
+        - 
+    validations:
+      required: true
+
+  - type: textarea
+    id: functional_requirements
+    attributes:
+      label: 機能要件
+      description: システムが提供すべき具体的な機能
+      placeholder: |
+        - 予約情報を登録できる
+        - 予約一覧を表示できる
+        - 予約を更新・削除できる
+      value: |
+        - 
+        - 
+        - 
+    validations:
+      required: true
+
+  - type: textarea
+    id: non_functional_requirements
+    attributes:
+      label: 非機能要件
+      description: パフォーマンス、セキュリティ、保守性などの要件
+      placeholder: |
+        - 既存のコード構造とパターンに従う
+        - 適切なセキュリティ設定を含む
+        - テストカバレッジ80%以上
+      value: |
+        - 既存のコード構造とパターンに従う
+        - 適切なセキュリティ設定を含む
+        - テストを含める
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: 受け入れ基準
+      description: この要求が完了したと判断する基準
+      placeholder: |
+        - [ ] 全ての機能要件が明確に定義されている
+        - [ ] ユーザーストーリーが具体的で実装可能
+        - [ ] 技術的制約が特定されている
+      value: |
+        - [ ] 全ての機能要件が明確に定義されている
+        - [ ] ユーザーストーリーが具体的で実装可能
+        - [ ] 非機能要件が明確である
+        - [ ] 受け入れ基準がテスト可能である
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical_constraints
+    attributes:
+      label: 技術的考慮事項
+      description: 参考にすべき既存パターンや技術的制約
+      placeholder: |
+        - Visit エンティティのパターンを参考にする
+        - Spring Data JPA を使用する
+      value: |
+        - 既存のエンティティパターンを参考にする
+        - REST APIで実装する
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 次のステップ
+        この要求が承認されたら、次の工程「基本設計」のIssueを作成してください。
+        次の工程では、システムアーキテクチャとエンティティモデルを設計します。

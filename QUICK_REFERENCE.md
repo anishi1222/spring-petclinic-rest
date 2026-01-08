@@ -131,11 +131,53 @@ mvn test
 # 特定のテストのみ実行
 mvn test -Dtest=PetHotelStayRestControllerTests
 
+# テストカバレッジレポート生成（テスト実行後）
+mvn jacoco:report
+
 # アプリケーション起動
 mvn spring-boot:run
 
 # テストスキップでビルド
 mvn clean install -DskipTests
+```
+
+## テストカバレッジレポート
+
+### レポート生成とアクセス
+
+1. **テスト実行とカバレッジレポート生成**:
+   ```bash
+   mvn clean test jacoco:report
+   ```
+
+2. **レポート確認**:
+   - **パス**: `target/site/jacoco/index.html`
+   - **ブラウザで開く**: `file:///path/to/spring-petclinic-rest/target/site/jacoco/index.html`
+
+3. **カバレッジ目標値**:
+   - **Line Coverage**: 85% 以上
+   - **Branch Coverage**: 66% 以上
+
+### レポートの見方
+
+- **緑色**: カバーされた行
+- **赤色**: カバーされていない行
+- **黄色**: 部分的にカバーされた分岐
+
+### よく使うシナリオ
+
+**単体テスト後のカバレッジ確認** (セクション5):
+```bash
+mvn test -Dtest="*Tests" jacoco:report
+open target/site/jacoco/index.html  # macOS
+# または
+xdg-open target/site/jacoco/index.html  # Linux
+```
+
+**統合テスト後のカバレッジ確認** (セクション6):
+```bash
+mvn clean test jacoco:report
+# ブラウザでレポート確認後、カバレッジが基準を満たしているか確認
 ```
 
 ## curl コマンド（API テスト）

@@ -158,26 +158,35 @@ curl http://localhost:9966/petclinic/api/pets/1
 既存のVisitパターンを参考に、シンプルで実装可能なIssueを作成してください。
 ```
 
-### 1.3 GitHub Labels の作成
+### 1.3 GitHub Issue Form の使用
 
-PM エージェントと相談しながら、プロジェクトで使用するラベルを作成します。
+PM エージェントと相談しながら、Phase 1（要求開発）のIssue Formを使用してIssueを作成します。
 
-GitHub リポジトリの **Issues** タブ → **Labels** に移動し、以下のラベルを作成:
+GitHub リポジトリの **Issues** タブ → **New Issue** に移動し、以下のIssue Formを選択:
 
-| ラベル名 | 色 | 説明 |
-|---------|-----|------|
-| `enhancement` | #a2eeef | 新機能追加 |
-| `feature` | #0075ca | フィーチャー実装 |
-| `backend` | #d93f0b | バックエンド関連 |
-| `database` | #fbca04 | データベース変更 |
+**Issue Form**: `Phase 1: 要求開発 (Requirements Development)`
+
+このIssue Formには以下のフィールドが含まれています:
+- 機能名
+- 概要
+- 背景
+- ユーザーストーリー
+- 機能要件
+- 非機能要件
+- 受け入れ基準
+- 技術的考慮事項
+
+自動的に適切なラベル（`phase:requirement`, `status:planning`）が付与されます。
 
 ### 1.4 Issue 作成
 
-PM エージェントの出力を基に、GitHub で Issue を作成します。
+PM エージェントの出力を基に、GitHub の Issue Form を使用して Phase 1 の Issue を作成します。
 
-**Issue タイトル**: `ペットホテル機能の追加`
+**Issue Form**: `.github/ISSUE_TEMPLATE/01_requirement.yml`
 
-**Issue 本文** (PM エージェントが生成):
+**Issue タイトル**: `[要求] ペットホテル機能の追加`
+
+**Issue 本文** (PM エージェントが生成した内容を Issue Form に入力):
 
 ```markdown
 ## 概要
@@ -217,12 +226,27 @@ PM エージェントの出力を基に、GitHub で Issue を作成します。
 
 **演習**:
 1. PM エージェントと対話しながらIssueを洗練させる
-2. Issue を GitHub に作成
-3. 適切なラベルを付与（`enhancement`, `feature`, `backend`, `database`）
+2. Phase 1 の Issue Form を使用して GitHub に Issue を作成
+3. Issue が作成されると、自動的に `phase:requirement` と `status:planning` ラベルが付与されます
+
+**重要**: 
+- 各工程（Phase）ごとに個別の Issue を作成します
+- Phase 1 が完了したら、Phase 2（基本設計）の Issue を作成します
+- 各 Issue には前工程の Issue 番号を記録します
 
 ---
 
 ## セクション2: 基本設計 - アーキテクトエージェント活用 (30分)
+
+### 2.0 Phase 2 Issue の作成
+
+Phase 1（要求開発）が完了したら、Phase 2（基本設計）の Issue を作成します。
+
+**Issue Form**: `.github/ISSUE_TEMPLATE/02_basic_design.yml`
+
+**Issue タイトル**: `[基本設計] ペットホテル機能の追加`
+
+**前工程 Issue**: Phase 1 の Issue 番号を記入
 
 ### 2.1 アーキテクトエージェントの役割
 
@@ -1376,7 +1400,7 @@ class PetHotelStayRestControllerTests {
 }
 ```
 
-### 5.4 テスト実行
+### 5.4 テスト実行とカバレッジレポート
 
 ```bash
 # 新しいテストのみ実行
@@ -1384,9 +1408,35 @@ mvn test -Dtest=PetHotelStayRestControllerTests
 
 # すべてのテスト実行
 mvn test
+
+# カバレッジレポート生成
+mvn jacoco:report
 ```
 
-コミット:
+### 5.5 カバレッジレポートの確認
+
+**レポートの場所**:
+- パス: `target/site/jacoco/index.html`
+- ブラウザで開く: `file:///path/to/spring-petclinic-rest/target/site/jacoco/index.html`
+
+**確認ポイント**:
+1. **全体のカバレッジ率**:
+   - Line Coverage: 85% 以上が目標
+   - Branch Coverage: 66% 以上が目標
+
+2. **パッケージごとの確認**:
+   - `org.springframework.samples.petclinic.rest.controller`: PetHotelStayRestController のカバレッジを確認
+   - `org.springframework.samples.petclinic.service`: ClinicService のカバレッジを確認
+
+3. **カバレッジが低い箇所の特定**:
+   - 赤色で表示される行: テストでカバーされていない
+   - 黄色で表示される分岐: 部分的にしかカバーされていない
+
+**改善アクション**:
+- カバレッジが目標に達していない場合、追加のテストケースを作成
+- エッジケースや例外ケースのテストを追加
+
+### 5.6 コミット
 ```bash
 git add src/test/java/org/springframework/samples/petclinic/rest/controller/PetHotelStayRestControllerTests.java
 git commit -m "Add PetHotelStay controller tests"
@@ -1522,13 +1572,33 @@ curl -u admin:admin http://localhost:9966/petclinic/api/visits
 
 **期待結果**: 両方とも 200 OK、既存データが正常に取得できる
 
-### 6.6 テスト報告書作成
+### 6.6 統合テスト時のカバレッジ確認
+
+**統合テスト完了後、カバレッジレポートを再確認**:
+
+```bash
+# 完全なテストとカバレッジレポート生成
+mvn clean test jacoco:report
+```
+
+**レポートの確認**:
+- `target/site/jacoco/index.html` をブラウザで開く
+- 統合テスト実行により、カバレッジが向上しているか確認
+- エンドツーエンドでのカバレッジ状況を評価
+
+**確認項目**:
+1. 全体のカバレッジ率が目標値（Line: 85%, Branch: 66%）を達成しているか
+2. 新規実装した PetHotelStay 関連クラスのカバレッジは十分か
+3. 統合テストにより追加でカバーされた箇所はどこか
+
+### 6.7 テスト報告書作成
 
 ```
 @qa-manager 以下のテスト結果を基に、テスト報告書を作成してください：
 
 【実施したテスト】
 - 単体テスト: 8件すべてパス
+- テストカバレッジ: Line 85%以上, Branch 66%以上達成
 - ビルドテスト: 成功
 - 統合テスト: 6つのAPIエンドポイントすべて正常動作
 - 既存機能確認: Pet API, Visit API ともに正常動作
@@ -1537,7 +1607,7 @@ curl -u admin:admin http://localhost:9966/petclinic/api/visits
 なし
 
 【品質評価】
-すべてのテストがパスし、既存機能に影響なし。リリース可能。
+すべてのテストがパスし、カバレッジ目標を達成。既存機能に影響なし。リリース可能。
 ```
 
 ---

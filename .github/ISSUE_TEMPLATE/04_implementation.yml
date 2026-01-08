@@ -1,0 +1,148 @@
+name: "工程4: 実装"
+description: 詳細設計に基づいたコードの実装
+title: "[実装] "
+labels: ["phase:implementation", "status:in-progress"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 工程4: 実装
+        この工程では、詳細設計に基づいてコードを実装します。
+        担当エージェント: **Senior Developer**
+
+  - type: input
+    id: detailed_design_issue
+    attributes:
+      label: 詳細設計Issue番号
+      description: 前工程（詳細設計）のIssue番号
+      placeholder: "#125"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: implementation_tasks
+    attributes:
+      label: 実装タスク
+      description: 実装する項目
+      options:
+        - label: データベーススキーマ追加（schema.sql）
+        - label: テストデータ追加（data.sql）
+        - label: Entityクラス実装
+        - label: Repositoryインターフェース実装
+        - label: SpringDataRepository実装
+        - label: Serviceメソッド追加（ClinicService）
+        - label: DTO クラス実装
+        - label: Mapper インターフェース実装（MapStruct）
+        - label: REST Controller 実装
+        - label: OpenAPI仕様更新（openapi.yml）
+
+  - type: textarea
+    id: files_to_create
+    attributes:
+      label: 新規作成ファイル
+      description: 新しく作成するファイルのリスト
+      placeholder: |
+        - src/main/java/org/springframework/samples/petclinic/model/PetHotelStay.java
+        - src/main/java/org/springframework/samples/petclinic/repository/PetHotelStayRepository.java
+        - src/main/java/org/springframework/samples/petclinic/repository/springdatajpa/SpringDataPetHotelStayRepository.java
+        - src/main/java/org/springframework/samples/petclinic/rest/dto/PetHotelStayDto.java
+        - src/main/java/org/springframework/samples/petclinic/rest/dto/PetHotelStayFieldsDto.java
+        - src/main/java/org/springframework/samples/petclinic/mapper/PetHotelStayMapper.java
+        - src/main/java/org/springframework/samples/petclinic/rest/controller/PetHotelStayRestController.java
+      value: |
+        - 
+    validations:
+      required: true
+
+  - type: textarea
+    id: files_to_modify
+    attributes:
+      label: 変更するファイル
+      description: 既存ファイルで変更が必要なもの
+      placeholder: |
+        - src/main/java/org/springframework/samples/petclinic/service/ClinicService.java (メソッド追加)
+        - src/main/java/org/springframework/samples/petclinic/service/ClinicServiceImpl.java (実装追加)
+        - src/main/resources/db/h2/schema.sql (テーブル追加)
+        - src/main/resources/db/h2/data.sql (データ追加)
+        - src/main/resources/openapi.yml (API定義追加)
+      value: |
+        - 
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference_files
+    attributes:
+      label: 参考にする既存ファイル
+      description: パターンを参考にするファイル
+      placeholder: |
+        - Visit.java → PetHotelStay.java のパターン
+        - VisitRestController.java → PetHotelStayRestController.java のパターン
+        - VisitDto.java → PetHotelStayDto.java のパターン
+      value: |
+        - 
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: coding_standards
+    attributes:
+      label: コーディング規約チェック
+      description: コーディング規約の遵守確認
+      options:
+        - label: 全てのimportが正しく必要
+        - label: コンパイルエラーがない
+        - label: 既存パターンに厳密に従っている
+        - label: 全てのgetter/setterが実装されている
+        - label: 適切なアノテーション（@Entity, @NotNull, @PreAuthorize等）
+        - label: コンストラクタインジェクション使用
+        - label: finalフィールドで依存関係を宣言
+        - label: 命名規則に従っている（PascalCase, camelCase）
+
+  - type: textarea
+    id: implementation_notes
+    attributes:
+      label: 実装メモ
+      description: 実装時の特記事項や判断事項
+      placeholder: |
+        - Visitパターンを完全に踏襲
+        - @ManyToOne関係でPetと関連付け
+        - LocalDateを使用（日付のみ）
+        - MapStructでDTO変換
+      value: |
+        - 
+
+  - type: checkboxes
+    id: build_verification
+    attributes:
+      label: ビルド確認
+      description: ビルドとコンパイルの確認
+      options:
+        - label: mvn clean compile が成功する
+        - label: コンパイルエラーがない
+        - label: 警告が最小限である
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: 受け入れ基準
+      value: |
+        - [ ] 全ファイルが作成/更新されている
+        - [ ] コードがコンパイルできる
+        - [ ] 既存パターンに完全に従っている
+        - [ ] 全てのアノテーションが適切
+        - [ ] getter/setterが全て実装されている
+        - [ ] コンストラクタインジェクションが使用されている
+        - [ ] mvn clean compile が成功する
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 次のステップ
+        実装が完了したら、次の工程「単体テスト」のIssueを作成してください。
+        次の工程では、実装したコードに対する単体テストを作成します。

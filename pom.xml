@@ -324,6 +324,8 @@
                                 <!-- XML format for SonarCloud -->
                                 <!-- https://docs.sonarsource.com/sonarqube-cloud/enriching/test-coverage/java-test-coverage/ -->
                                 <format>XML</format>
+                                <!-- HTML format for local viewing -->
+                                <format>HTML</format>
                             </formats>
                         </configuration>
                     </execution>

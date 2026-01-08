@@ -1,0 +1,304 @@
+name: "工程7: 受け入れ/レビュー"
+description: Pull Requestの最終レビューとマージ判断
+title: "[受け入れ/レビュー] "
+labels: ["phase:acceptance", "status:review"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 工程7: 受け入れ/レビュー
+        この工程では、Pull Requestの最終レビューとマージ判断を行います。
+        担当エージェント: **Lead**
+
+  - type: input
+    id: integration_test_issue
+    attributes:
+      label: 統合テストIssue番号
+      description: 前工程（統合テスト）のIssue番号
+      placeholder: "#128"
+    validations:
+      required: true
+
+  - type: input
+    id: pull_request_number
+    attributes:
+      label: Pull Request番号
+      description: レビュー対象のPR番号
+      placeholder: "#200"
+    validations:
+      required: true
+
+  - type: textarea
+    id: overall_assessment
+    attributes:
+      label: 総合評価
+      description: PRの全体的な評価
+      placeholder: |
+        このPRは、ペットホテル予約機能を実装しており、以下の点で高品質です：
+        - 既存パターンに完全に従っている
+        - 包括的なテストが含まれている
+        - 適切なセキュリティ設定
+        - ドキュメントが充実している
+      value: |
+        
+    validations:
+      required: true
+
+  - type: textarea
+    id: strengths
+    attributes:
+      label: 良い点
+      description: PRの優れている点
+      placeholder: |
+        ✅ コード品質が高い
+        ✅ 既存パターンに完全に従っている
+        ✅ テストカバレッジが十分
+        ✅ 適切なエラーハンドリング
+        ✅ セキュリティが適切に設定されている
+      value: |
+        ✅ 
+        ✅ 
+        ✅ 
+    validations:
+      required: true
+
+  - type: textarea
+    id: areas_for_improvement
+    attributes:
+      label: 改善が必要な点
+      description: 修正または改善すべき点（なければ「なし」）
+      placeholder: |
+        💡 [ファイル名]:[行番号] - 改善提案の説明
+        ⚠️ [ファイル名]:[行番号] - 重要な修正事項
+        
+        または
+        
+        なし - 全て適切に実装されています
+      value: |
+        なし
+
+  - type: textarea
+    id: detailed_comments
+    attributes:
+      label: 詳細コメント
+      description: ファイル/行単位の具体的なコメント
+      placeholder: |
+        #### PetHotelStay.java:42
+        💡 **提案**: status フィールドに Enum を使用することを検討してください。
+        **理由**: タイプセーフティとバリデーションの向上
+        **例**:
+        ```java
+        public enum StayStatus {
+          RESERVED, CHECKED_IN, CHECKED_OUT, CANCELLED
+        }
+        ```
+      value: |
+        
+
+  - type: checkboxes
+    id: code_quality_review
+    attributes:
+      label: コード品質レビュー
+      options:
+        - label: プロジェクトコーディング規約に従っている
+        - label: 一貫性のある命名規則
+        - label: コードの重複がない
+        - label: 適切なコメント（多すぎず少なすぎず）
+        - label: 包括的なエラーハンドリング
+        - label: ハードコード値がない
+        - label: 定数/Enumの適切な使用
+        - label: コードが読みやすく保守可能
+
+  - type: checkboxes
+    id: architecture_review
+    attributes:
+      label: アーキテクチャ&設計レビュー
+      options:
+        - label: 既存パターンに従っている（Visit, VisitRestController等）
+        - label: 適切な関心の分離
+        - label: レイヤーの適切な使用（Controller, Service, Repository）
+        - label: Controllerにビジネスロジックがない
+        - label: DTOが正しく使用されている
+        - label: エンティティ関係が適切
+        - label: 依存性注入が正しく実装されている
+
+  - type: checkboxes
+    id: security_review
+    attributes:
+      label: セキュリティレビュー
+      options:
+        - label: "@PreAuthorize アノテーションが存在する"
+        - label: 適切なロールベースアクセス制御
+        - label: 入力バリデーション（@Valid, @NotNull）
+        - label: SQLインジェクションの脆弱性がない
+        - label: 機密データの露出がない
+        - label: 必要な箇所で認証が要求される
+
+  - type: checkboxes
+    id: performance_review
+    attributes:
+      label: パフォーマンスレビュー
+      options:
+        - label: 適切なフェッチ戦略（EAGER/LAZY）
+        - label: N+1クエリ問題がない
+        - label: トランザクションの適切な使用
+        - label: 外部キーにインデックスがある
+        - label: 明らかなボトルネックがない
+
+  - type: checkboxes
+    id: testing_review
+    attributes:
+      label: テストレビュー
+      options:
+        - label: 全てのCRUD操作がテストされている
+        - label: 成功と失敗のケースがカバーされている
+        - label: エッジケースがテストされている
+        - label: モックが適切に使用されている
+        - label: テストが独立している
+        - label: テストカバレッジ > 80%
+        - label: ローカルとCIでテストがパスする
+
+  - type: checkboxes
+    id: database_review
+    attributes:
+      label: データベースレビュー
+      options:
+        - label: スキーマが規約に従っている
+        - label: 外部キー制約が定義されている
+        - label: インデックスが適切に作成されている
+        - label: マイグレーションスクリプトが提供されている
+        - label: テストデータが含まれている
+
+  - type: checkboxes
+    id: documentation_review
+    attributes:
+      label: ドキュメントレビュー
+      options:
+        - label: PR説明が完全
+        - label: 必要な箇所にコードコメント
+        - label: APIドキュメントが更新されている
+        - label: 必要に応じてREADMEが更新されている
+
+  - type: checkboxes
+    id: git_hygiene
+    attributes:
+      label: Git管理レビュー
+      options:
+        - label: コミットメッセージが明確
+        - label: コミットが論理的な単位
+        - label: マージコミットがない（squash mergeポリシーの場合）
+        - label: ブランチがmainと同期している
+
+  - type: textarea
+    id: test_coverage_assessment
+    attributes:
+      label: テストカバレッジ評価
+      description: テストの質とカバレッジの評価
+      placeholder: |
+        - 単体テスト：全てのCRUD操作をカバー、エッジケース含む
+        - 統合テスト：完全なワークフローをテスト
+        - カバレッジ：85%以上
+      value: |
+        
+
+  - type: textarea
+    id: security_assessment
+    attributes:
+      label: セキュリティ評価
+      description: セキュリティに関する考慮事項と発見事項
+      value: |
+        
+
+  - type: textarea
+    id: performance_assessment
+    attributes:
+      label: パフォーマンス評価
+      description: パフォーマンスへの影響
+      value: |
+        
+
+  - type: textarea
+    id: documentation_assessment
+    attributes:
+      label: ドキュメント評価
+      description: ドキュメントの質に関するコメント
+      value: |
+        
+
+  - type: dropdown
+    id: review_decision
+    attributes:
+      label: レビュー判定
+      description: このPRに対する最終判断
+      options:
+        - "✅ 承認 (APPROVE) - マージ可能"
+        - "🔄 変更要求 (REQUEST CHANGES) - 修正後に再レビュー"
+        - "❌ 却下 (REJECT) - 根本的な問題あり"
+    validations:
+      required: true
+
+  - type: textarea
+    id: decision_rationale
+    attributes:
+      label: 判定理由
+      description: 上記の判定を下した理由
+      placeholder: |
+        このPRは以下の理由で承認します：
+        - 全てのテストがパスしている
+        - コード品質が高く、既存パターンに従っている
+        - セキュリティが適切に設定されている
+        - 既存機能へのリグレッションがない
+        - ドキュメントが充実している
+      value: |
+        
+    validations:
+      required: true
+
+  - type: textarea
+    id: action_items
+    attributes:
+      label: アクションアイテム
+      description: マージ前/後に実施すべき項目
+      placeholder: |
+        マージ前:
+        - [ ] 全てのレビューコメントに対応
+        - [ ] 最終テスト実行
+        
+        マージ後:
+        - [ ] mainブランチでの動作確認
+        - [ ] 関連ドキュメントの更新
+      value: |
+        マージ前:
+        - [ ] 
+        
+        マージ後:
+        - [ ] 
+
+  - type: textarea
+    id: lessons_learned
+    attributes:
+      label: 振り返り（Lessons Learned）
+      description: このレビュープロセスから学んだこと
+      placeholder: |
+        - 良かった点：Issue Driven Developmentにより計画的に進められた
+        - 改善点：詳細設計段階でより具体的な仕様を決めるべきだった
+        - 次回への提案：パフォーマンステストも含める
+      value: |
+        良かった点:
+        - 
+        
+        改善点:
+        - 
+        
+        次回への提案:
+        - 
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 完了
+        レビューが「承認」の場合、このPRをマージして開発プロセスを完了してください。
+        マージ後は、全ての関連Issueをクローズし、必要に応じてリリースノートを作成してください。

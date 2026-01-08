@@ -1,0 +1,236 @@
+name: "工程3: 詳細設計"
+description: REST API仕様とデータベーススキーマの詳細設計
+title: "[詳細設計] "
+labels: ["phase:detailed-design", "status:design"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 工程3: 詳細設計
+        この工程では、REST API仕様とデータベーススキーマ（DDL）を詳細に設計します。
+        担当エージェント: **Tech Lead**
+
+  - type: input
+    id: basic_design_issue
+    attributes:
+      label: 基本設計Issue番号
+      description: 前工程（基本設計）のIssue番号
+      placeholder: "#124"
+    validations:
+      required: true
+
+  - type: textarea
+    id: api_endpoints
+    attributes:
+      label: REST APIエンドポイント仕様
+      description: 全てのCRUD操作のエンドポイント定義
+      placeholder: |
+        | Method | Endpoint | Description | Status Codes | Role |
+        |--------|----------|-------------|--------------|------|
+        | GET | /api/pethotelstays | 全予約取得 | 200, 404 | OWNER_ADMIN |
+        | GET | /api/pethotelstays/{id} | 特定予約取得 | 200, 404 | OWNER_ADMIN |
+        | POST | /api/pethotelstays | 予約作成 | 201 | OWNER_ADMIN |
+        | PUT | /api/pethotelstays/{id} | 予約更新 | 200, 404 | OWNER_ADMIN |
+        | DELETE | /api/pethotelstays/{id} | 予約削除 | 204, 404 | OWNER_ADMIN |
+      value: |
+        | Method | Endpoint | Description | Status Codes | Role |
+        |--------|----------|-------------|--------------|------|
+        | GET | /api/resources | 一覧取得 | 200, 404 | |
+        | GET | /api/resources/{id} | 単一取得 | 200, 404 | |
+        | POST | /api/resources | 作成 | 201 | |
+        | PUT | /api/resources/{id} | 更新 | 200, 404 | |
+        | DELETE | /api/resources/{id} | 削除 | 204, 404 | |
+    validations:
+      required: true
+
+  - type: textarea
+    id: request_format
+    attributes:
+      label: リクエストフォーマット
+      description: POST/PUT リクエストのJSON形式
+      placeholder: |
+        ```json
+        {
+          "checkInDate": "2024-01-15",
+          "checkOutDate": "2024-01-20",
+          "roomNumber": "101",
+          "status": "RESERVED",
+          "pet": {
+            "id": 1
+          }
+        }
+        ```
+      value: |
+        ```json
+        {
+          "field1": "value",
+          "field2": "value"
+        }
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: response_format
+    attributes:
+      label: レスポンスフォーマット
+      description: GETレスポンスのJSON形式
+      placeholder: |
+        ```json
+        {
+          "id": 1,
+          "checkInDate": "2024-01-15",
+          "checkOutDate": "2024-01-20",
+          "roomNumber": "101",
+          "status": "RESERVED",
+          "pet": {
+            "id": 1,
+            "name": "Leo"
+          }
+        }
+        ```
+      value: |
+        ```json
+        {
+          "id": 1,
+          "field1": "value",
+          "field2": "value"
+        }
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: database_ddl
+    attributes:
+      label: データベーススキーマ（DDL）
+      description: CREATE TABLE、ALTER TABLE、CREATE INDEX文
+      placeholder: |
+        ```sql
+        CREATE TABLE IF NOT EXISTS pet_hotel_stays (
+          id INTEGER IDENTITY PRIMARY KEY,
+          check_in_date DATE NOT NULL,
+          check_out_date DATE NOT NULL,
+          room_number VARCHAR(10),
+          status VARCHAR(20) NOT NULL,
+          pet_id INTEGER NOT NULL
+        );
+        
+        ALTER TABLE pet_hotel_stays
+          ADD CONSTRAINT fk_pet_hotel_stay_pet
+          FOREIGN KEY (pet_id) REFERENCES pets (id);
+        
+        CREATE INDEX idx_pet_hotel_stay_pet ON pet_hotel_stays (pet_id);
+        CREATE INDEX idx_pet_hotel_stay_dates ON pet_hotel_stays (check_in_date, check_out_date);
+        ```
+      value: |
+        ```sql
+        CREATE TABLE IF NOT EXISTS table_name (
+          id INTEGER IDENTITY PRIMARY KEY
+        );
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: test_data
+    attributes:
+      label: テストデータ（INSERT文）
+      description: サンプルデータのINSERT文
+      placeholder: |
+        ```sql
+        INSERT INTO pet_hotel_stays VALUES (1, '2024-01-15', '2024-01-20', '101', 'RESERVED', 1);
+        INSERT INTO pet_hotel_stays VALUES (2, '2024-02-01', '2024-02-05', '102', 'CHECKED_IN', 2);
+        ```
+      value: |
+        ```sql
+        INSERT INTO table_name VALUES (...);
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation_rules
+    attributes:
+      label: バリデーションルール
+      description: 入力値の検証ルール
+      placeholder: |
+        - checkInDate: @NotNull
+        - checkOutDate: @NotNull, チェックイン日より後
+        - roomNumber: 最大10文字
+        - status: NOT NULL、Enum値
+        - pet: @NotNull
+      value: |
+        - 
+    validations:
+      required: true
+
+  - type: textarea
+    id: security_config
+    attributes:
+      label: セキュリティ設定
+      description: "@PreAuthorize アノテーションの設定"
+      placeholder: |
+        ```java
+        @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
+        ```
+        - 全てのエンドポイントに適用
+        - OWNER_ADMIN ロールが必要
+      value: |
+        ```java
+        @PreAuthorize("hasRole(@roles.ROLE_NAME)")
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: error_handling
+    attributes:
+      label: エラーハンドリング
+      description: エラー時のHTTPステータスコードとレスポンス
+      placeholder: |
+        - 404 NOT_FOUND: リソースが存在しない
+        - 400 BAD REQUEST: バリデーションエラー
+        - 500 INTERNAL_SERVER_ERROR: サーバーエラー
+      value: |
+        - 404 NOT_FOUND: 
+        - 400 BAD REQUEST: 
+        - 500 INTERNAL_SERVER_ERROR: 
+
+  - type: checkboxes
+    id: design_checklist
+    attributes:
+      label: 設計チェックリスト
+      options:
+        - label: 全てのCRUD操作が定義されている
+        - label: HTTPステータスコードが適切
+        - label: セキュリティが設定されている
+        - label: URLがRESTful規約に従っている
+        - label: 外部キー制約が定義されている
+        - label: 外部キーにインデックスがある
+        - label: テストデータが提供されている
+        - label: 既存パターンに従っている
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: 受け入れ基準
+      value: |
+        - [ ] REST API仕様が完全に定義されている
+        - [ ] データベーススキーマ（DDL）が完成している
+        - [ ] リクエスト/レスポンス形式が明確
+        - [ ] セキュリティ設定が定義されている
+        - [ ] バリデーションルールが明確
+        - [ ] テストデータが用意されている
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 次のステップ
+        この詳細設計が承認されたら、次の工程「実装」のIssueを作成してください。
+        次の工程では、設計に基づいてコードを実装します。

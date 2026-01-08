@@ -1,0 +1,153 @@
+name: "工程2: 基本設計"
+description: システムアーキテクチャとエンティティモデルの設計
+title: "[基本設計] "
+labels: ["phase:basic-design", "status:design"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 工程2: 基本設計
+        この工程では、システムアーキテクチャとエンティティモデルを設計します。
+        担当エージェント: **Software Architect**
+
+  - type: input
+    id: requirement_issue
+    attributes:
+      label: 要求Issue番号
+      description: 前工程（要求開発）のIssue番号
+      placeholder: "#123"
+    validations:
+      required: true
+
+  - type: textarea
+    id: entity_design
+    attributes:
+      label: エンティティ設計
+      description: 新規/変更するエンティティの設計
+      placeholder: |
+        ### PetHotelStay
+        **継承**: BaseEntity
+        
+        **フィールド**:
+        - checkInDate: LocalDate (@NotNull)
+        - checkOutDate: LocalDate (@NotNull)
+        - roomNumber: String
+        - status: String
+        - pet: Pet (@ManyToOne)
+      value: |
+        ### [エンティティ名]
+        **継承**: BaseEntity
+        
+        **フィールド**:
+        - 
+        
+        **リレーション**:
+        - 
+    validations:
+      required: true
+
+  - type: textarea
+    id: database_schema
+    attributes:
+      label: データベーススキーマ概要
+      description: テーブル構造とリレーションシップの概要
+      placeholder: |
+        - テーブル名: pet_hotel_stays
+        - 主キー: id (INTEGER, IDENTITY)
+        - 外部キー: pet_id → pets(id)
+        - インデックス: pet_id, check_in_date
+      value: |
+        - テーブル名: 
+        - 主キー: 
+        - 外部キー: 
+        - インデックス: 
+    validations:
+      required: true
+
+  - type: textarea
+    id: layer_structure
+    attributes:
+      label: レイヤー構造
+      description: 実装する層とコンポーネント
+      placeholder: |
+        - Entity層: PetHotelStay
+        - Repository層: PetHotelStayRepository, SpringDataPetHotelStayRepository
+        - Service層: ClinicService (メソッド追加)
+        - DTO層: PetHotelStayDto, PetHotelStayFieldsDto
+        - Mapper層: PetHotelStayMapper
+        - Controller層: PetHotelStayRestController
+      value: |
+        - Entity層: 
+        - Repository層: 
+        - Service層: 
+        - DTO層: 
+        - Mapper層: 
+        - Controller層: 
+    validations:
+      required: true
+
+  - type: textarea
+    id: relationships
+    attributes:
+      label: エンティティ間のリレーションシップ
+      description: 既存エンティティとの関連
+      placeholder: |
+        - PetHotelStay → Pet: @ManyToOne (多対一)
+        - カスケード: CascadeType.MERGE
+        - フェッチ: FetchType.LAZY
+      value: |
+        - 
+    validations:
+      required: true
+
+  - type: textarea
+    id: architectural_decisions
+    attributes:
+      label: アーキテクチャ上の決定事項
+      description: 重要な設計判断とその理由
+      placeholder: |
+        1. Visitパターンに従う理由: 既存コードとの一貫性
+        2. BaseEntityを継承する理由: ID管理の統一
+        3. LocalDateを使用する理由: 日付のみを扱うため
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: consistency_check
+    attributes:
+      label: 一貫性チェック
+      description: 既存アーキテクチャとの整合性確認
+      options:
+        - label: BaseEntityパターンに従っている
+        - label: 既存エンティティと一貫性がある
+        - label: 適切なフェッチ戦略を使用
+        - label: 適切なカスケード設定
+        - label: 命名規則に従っている
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: 受け入れ基準
+      description: この基本設計が完了したと判断する基準
+      value: |
+        - [ ] エンティティモデルが明確に定義されている
+        - [ ] データベーススキーマが設計されている
+        - [ ] レイヤー構造が明確である
+        - [ ] 既存パターンとの一貫性が確保されている
+        - [ ] アーキテクチャ上の決定事項が文書化されている
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 次のステップ
+        この基本設計が承認されたら、次の工程「詳細設計」のIssueを作成してください。
+        次の工程では、REST API仕様とデータベーススキーマ（DDL）を詳細に設計します。
