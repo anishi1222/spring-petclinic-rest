@@ -55,13 +55,32 @@
 
 ### 0.1 リポジトリのフォークとクローン
 
-1. GitHub で spring-petclinic-rest リポジトリ [https://github.com/anishi1222/spring-petclinic-rest](https://github.com/anishi1222/spring-petclinic-rest) をフォーク
+1. GitHub で spring-petclinic-rest リポジトリ [https://github.com/anishi1222/spring-petclinic-rest](https://github.com/anishi1222/spring-petclinic-rest) をテンプレートとして、リポジトリを作成
+    - リポジトリ名は自由ですが、間違えないように `spring-petclinic-rest` にすると良いでしょう
+    - Visibilityは Public または Private どちらでも可
+
+    ![Create a repository](images/create-repo-from-template.png)
+
+    - Issueに付けるラベルを新規作成します。既存のラベルは削除してください。
+      - `phase:requirement`
+      - `phase:basic-design`
+      - `phase:detailed-design`
+      - `phase:implementation`
+      - `phase:unit-test`
+      - `phase:integration-test`
+      - `phase:acceptance`
+      - `status:design`
+      - `status:planning`
+      - `status:in-progress`
+      - `status:review`
+      - `status:testing`
+
 2. ローカルにクローン:
 
-```bash
-git clone https://github.com/YOUR_USERNAME/spring-petclinic-rest.git
-cd spring-petclinic-rest
-```
+    ```bash
+    git clone https://github.com/YOUR_USERNAME/spring-petclinic-rest.git
+    cd spring-petclinic-rest
+    ```
 
 ### 0.2 アプリケーションの起動
 
