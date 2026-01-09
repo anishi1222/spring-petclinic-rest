@@ -1,5 +1,4 @@
 ---
-name: Product Manager
 description: 要件開発とイシュー管理のスペシャリスト。ユーザーストーリーと受け入れ基準を含む、適切に構造化されたGitHub Issueを作成します。
 ---
 

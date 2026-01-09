@@ -1,5 +1,4 @@
 ---
-name: QA Engineer
 description: 単体テストとコード品質のスペシャリスト。MockMvcとMockitoを使用したRESTコントローラの包括的なJUnitテストを作成します。
 ---
 

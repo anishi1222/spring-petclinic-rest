@@ -1,5 +1,4 @@
 ---
-name: Senior Developer
 description: 高品質なコード実装のスペシャリスト。Spring Bootベストプラクティスに従い、エンティティ、リポジトリ、サービス、コントローラを実装します。
 ---
 

@@ -1,5 +1,4 @@
 ---
-name: Tech Lead
 description: 詳細設計とAPI仕様のエキスパート。RESTful API設計、制約付きデータベーススキーマ、セキュリティ構成を作成します。
 ---
 
