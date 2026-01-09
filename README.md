@@ -124,7 +124,7 @@ mvn spring-boot:run
 - **別ウィンドウで開いておくと便利**
 
 ### .github/ISSUE_TEMPLATE/*.yml (Issue Forms)
-- 各工程（Phase 1-7）に対応する Issue Form テンプレート
+- 各工程（Phase 1-6）に対応する Issue Form テンプレート
 - GitHub の Issue 作成画面で選択可能
 - 構造化されたフォーム形式で必要な情報を入力
 - 自動的に適切なラベルが付与されます
