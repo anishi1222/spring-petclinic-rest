@@ -242,15 +242,15 @@ git push origin feature/phase1-requirements
 
 ### Pull Request 作成
 
-GitHub で Pull Request を作成:
+GitHub で Pull Request を作成します。タイトルには Issue 番号を含め、関連付けを行います。
 
-**PRタイトル**: `Phase 1: ペットホテル機能の要求開発 (#1)`
+**PRタイトル**: `Phase 1: ペットホテル機能の要求開発`
 
 **PR説明**:
 ```markdown
 ## Phase 1: 要求開発
 
-Closes #1
+Closes #要求開発のIssue番号
 
 ## 概要
 ペットホテル機能のビジネス要件とユーザーストーリーを定義しました。
@@ -280,7 +280,7 @@ Closes #1
 4. 受け入れ基準が測定可能か
 
 ## 次のステップ
-このPRがマージされたら、Phase 2（基本設計）のIssue #2を作成してください。
+このPRがマージされたら、Phase 2（基本設計）のIssueを作成してください。
 ```
 
 **ラベル**: `phase:requirement`, `status:review`
@@ -307,8 +307,8 @@ git pull origin master
 git branch -d feature/phase1-requirements
 ```
 
-**Issue #1 のクローズ**:
-PRがマージされると、「Closes #1」により Issue #1 が自動的にクローズされます。
+**要求開発のIssueのクローズ**:
+PRがマージされると、「Closes #要求開発のIssue番号」により 要求開発のIssueが自動的にクローズされます。
 
 ---
 

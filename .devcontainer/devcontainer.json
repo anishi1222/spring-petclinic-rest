@@ -1,0 +1,53 @@
+{
+  "name": "Spring Petclinic REST",
+  "image": "mcr.microsoft.com/devcontainers/java:17",
+
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17",
+      "installMaven": "true",
+      "installGradle": "false"
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-spring-initializr",
+        "vscjava.vscode-spring-boot-dashboard",
+        "pivotal.vscode-spring-boot",
+        "vscjava.vscode-maven",
+        "redhat.java",
+        "vmware.vscode-boot-dev-pack",
+        "github.copilot",
+        "github.copilot-chat"
+      ],
+      "settings": {
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-17",
+            "path": "/usr/local/sdkman/candidates/java/current",
+            "default": true
+          }
+        ],
+        "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
+        "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn"
+      }
+    }
+  },
+
+  "forwardPorts": [9966],
+  "portsAttributes": {
+    "9966": {
+      "label": "Spring Petclinic REST API",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "postCreateCommand": "java -version && mvn -version",
+
+  "remoteUser": "vscode"
+}

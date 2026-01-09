@@ -1,5 +1,5 @@
-name: "工程6: 統合テスト"
-description: システム全体の統合テストと品質保証
+name: "工程5: 統合テスト"
+description: システム全体の統合テストとリリース判定
 title: "[統合テスト] "
 labels: ["phase:integration-test", "status:testing"]
 assignees: []
@@ -8,16 +8,16 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 工程6: 統合テスト
-        この工程では、システム全体の統合テストを実施し、品質を保証します。
+        ## 工程5: 統合テスト
+        この工程では、システム全体の統合テストを実施し、リリース判定を行います。
         担当エージェント: **QA Manager**
 
   - type: input
-    id: unit_test_issue
+    id: implementation_issue
     attributes:
-      label: 単体テストIssue番号
-      description: 前工程（単体テスト）のIssue番号（複数の場合はカンマ区切りまたはスペース区切り：例 \#127, \#128 または \#127 \#128）
-      placeholder: #127 または #127, #128
+      label: 実装と単体テストIssue番号
+      description: 前工程（実装と単体テスト）のIssue番号（複数の場合はカンマ区切りまたはスペース区切り：例 #124, #125 または #124 #125）
+      placeholder: "#124" または "#124, #125"
     validations:
       required: true
 

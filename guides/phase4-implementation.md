@@ -1,4 +1,4 @@
-# Phase 4: 実装
+# Phase 4: 実装と単体テスト
 
 **担当エージェント**: シニアデベロッパー
 
@@ -6,7 +6,9 @@
 - データベーススキーマを実装する
 - Entity, Repository, Service, Controller を実装する
 - DTO と Mapper を実装する
-- 実装コードをコミットしてPRを出す
+- Controller の単体テストを実装する
+- テストカバレッジを確認する
+- 実装コードとテストコードをコミットしてPRを出す
 
 **前提条件**: Phase 3 (Issue #3) がマージ済みであること
 
@@ -14,11 +16,11 @@
 
 ## 4.1 Phase 4 Issue の作成
 
-Phase 3（詳細設計）が完了したので、Phase 4（実装）の Issue を作成します。
+Phase 3（詳細設計）が完了したので、Phase 4（実装と単体テスト）の Issue を作成します。
 
 **Issue Form**: `.github/ISSUE_TEMPLATE/04_implementation.yml`
 
-**Issue タイトル**: `[実装] ペットホテル機能の実装`
+**Issue タイトル**: `[実装と単体テスト] ペットホテル機能の実装と単体テスト`
 
 **前工程 Issue**: Phase 3 の Issue 番号を記入（例: `#3`）
 
@@ -30,6 +32,7 @@ Phase 3（詳細設計）が完了したので、Phase 4（実装）の Issue �
 - 高品質なコード実装
 - 既存パターンの踏襲
 - ベストプラクティスの適用
+- 包括的な単体テストの作成
 - コードレビュー観点の提供
 
 ---
@@ -37,9 +40,9 @@ Phase 3（詳細設計）が完了したので、Phase 4（実装）の Issue �
 ## 4.3 ブランチ作成
 
 ```bash
-# 最新の master を取得
-git checkout master
-git pull origin master
+# 最新の main を取得
+git checkout main
+git pull origin main
 
 # Phase 4 用のブランチ作成
 git checkout -b feature/phase4-implementation
@@ -265,19 +268,110 @@ git commit -m "Add PetHotelStay REST controller"
 
 ---
 
-## 4.10 ビルドとテスト実行
+## 4.10 ビルドとテスト実行（実装確認）
 
 ```bash
 # コンパイル（MapStruct生成）
 mvn clean compile
-
-# テスト実行
-mvn test
 ```
 
 ---
 
-## 4.11 Phase 4 の Pull Request 作成と承認
+## 4.11 単体テストコード実装
+
+実装が完了したら、同じ開発者が単体テストを作成して動作確認を行います。
+
+### シニアデベロッパーエージェントへのプロンプト例
+
+```
+PetHotelStayRestController の単体テストを実装してください：
+
+【参考】
+VisitRestControllerTests.java のパターンに従ってください。
+
+【テストケース】
+1. getPetHotelStaySuccess - 正常取得
+2. getPetHotelStayNotFound - 存在しないID
+3. listPetHotelStaysSuccess - 一覧取得
+4. createPetHotelStaySuccess - 正常作成
+5. updatePetHotelStaySuccess - 正常更新
+6. updatePetHotelStayNotFound - 存在しないID更新
+7. deletePetHotelStaySuccess - 正常削除
+8. deletePetHotelStayNotFound - 存在しないID削除
+
+【要件】
+- MockMvc を使用
+- @WithMockUser でセキュリティテスト
+- ClinicService をモック
+- JSON形式の検証
+
+完全なJavaコードを生成してください。
+```
+
+### テストコード実装
+
+シニアデベロッパーエージェントの出力を基に、[src/test/java/org/springframework/samples/petclinic/rest/controller/PetHotelStayRestControllerTests.java](../src/test/java/org/springframework/samples/petclinic/rest/controller/PetHotelStayRestControllerTests.java) を作成します。
+
+**実装する8つのテストケース**:
+
+1. `testGetPetHotelStaySuccess()` - 正常取得（200 OK）
+2. `testGetPetHotelStayNotFound()` - 存在しないID（404 NOT_FOUND）
+3. `testListPetHotelStaysSuccess()` - 一覧取得（200 OK）
+4. `testCreatePetHotelStaySuccess()` - 新規作成（201 CREATED）
+5. `testUpdatePetHotelStaySuccess()` - 正常更新（200 OK）
+6. `testUpdatePetHotelStayNotFound()` - 存在しないID更新（404 NOT_FOUND）
+7. `testDeletePetHotelStaySuccess()` - 正常削除（204 NO_CONTENT）
+8. `testDeletePetHotelStayNotFound()` - 存在しないID削除（404 NOT_FOUND）
+
+### テスト実行
+
+```bash
+# 新しいテストのみ実行
+mvn test -Dtest=PetHotelStayRestControllerTests
+
+# すべてのテスト実行
+mvn test
+```
+
+**期待結果**:
+```
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
+```
+
+### テストコードのコミット
+
+```bash
+git add src/test/java/org/springframework/samples/petclinic/rest/controller/PetHotelStayRestControllerTests.java
+git commit -m "Add PetHotelStay controller tests"
+```
+
+---
+
+## 4.12 テストカバレッジレポート生成
+
+```bash
+# カバレッジレポート生成
+mvn jacoco:report
+```
+
+**レポートの場所**: `target/site/jacoco/index.html`
+
+**確認ポイント**:
+1. **全体のカバレッジ率**:
+   - Line Coverage: 85% 以上が目標
+   - Branch Coverage: 66% 以上が目標
+
+2. **パッケージごとの確認**:
+   - `org.springframework.samples.petclinic.rest.controller`: PetHotelStayRestController のカバレッジを確認
+   - `org.springframework.samples.petclinic.service`: ClinicService のカバレッジを確認
+
+3. **カバレッジが低い箇所の特定**:
+   - 赤色で表示される行: テストでカバーされていない
+   - 黄色で表示される分岐: 部分的にしかカバーされていない
+
+---
+
+## 4.13 Phase 4 の Pull Request 作成と承認
 
 ### リモートへプッシュ
 
@@ -287,17 +381,17 @@ git push origin feature/phase4-implementation
 
 ### Pull Request 作成
 
-**PRタイトル**: `Phase 4: ペットホテル機能の実装 (#4)`
+**PRタイトル**: `Phase 4: ペットホテル機能の実装と単体テスト`
 
 **PR説明**:
 ```markdown
-## Phase 4: 実装
+## Phase 4: 実装と単体テスト
 
-Closes #4
-Depends on: #3
+Closes #実装と単体テストのIssue番号
+Depends on: #詳細設計のIssue番号
 
 ## 概要
-ペットホテル機能の全レイヤー（Entity, Repository, Service, Controller）を実装しました。
+ペットホテル機能の全レイヤー（Entity, Repository, Service, Controller）を実装し、単体テストを作成しました。
 
 ## 変更内容
 ### データベース
@@ -305,7 +399,7 @@ Depends on: #3
 - ✅ 外部キー制約とインデックスを設定
 - ✅ テストデータを3件追加
 
-### バックエンド
+### バックエンド実装
 - ✅ PetHotelStay エンティティを実装
 - ✅ PetHotelStayRepository を実装（Spring Data JPA）
 - ✅ ClinicService に PetHotelStay メソッドを追加
@@ -313,8 +407,17 @@ Depends on: #3
 - ✅ PetHotelStayMapper を実装（MapStruct）
 - ✅ PetHotelStayRestController を実装
 
+### 単体テスト
+- ✅ PetHotelStayRestControllerTests を作成
+- ✅ 8つのテストケースを実装
+  - 正常系: 取得、一覧、作成、更新、削除
+  - 異常系: 存在しないIDの取得、更新、削除
+- ✅ MockMvc を使用したコントローラーテスト
+- ✅ @WithMockUser によるセキュリティテスト
+- ✅ ClinicService のモック化
+
 ## エージェント活用
-- Senior Developer エージェント (`@senior-dev`) を活用して実装
+- Senior Developer エージェント (`@senior-dev`) を活用して実装と単体テストを実施
 
 ## 実装の要点
 1. **Visitパターンの踏襲**: 既存コードとの一貫性を保持
@@ -322,27 +425,40 @@ Depends on: #3
 3. **MapStruct**: DTOとエンティティの自動マッピング
 4. **RESTful API**: 標準的なCRUD操作を提供
 
-## ビルド結果
+## テスト結果
 ```bash
-mvn clean compile
-# BUILD SUCCESS
+mvn test -Dtest=PetHotelStayRestControllerTests
+# Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
+# Time elapsed: 2.5 s
 ```
 
+## カバレッジ
+- Line Coverage: 90% (目標: 85%以上)
+- Branch Coverage: 75% (目標: 66%以上)
+
 ## チェックリスト
+### 実装
 - [x] すべてのレイヤーが実装されている
 - [x] MapStruct が正常に動作する
 - [x] コンパイルが成功する
 - [x] 既存パターンに従っている
-- [x] 次工程（Phase 5: 単体テスト）への引き継ぎ情報が明確
+
+### 単体テスト
+- [x] すべてのテストがパスする
+- [x] カバレッジ目標を達成している
+- [x] 正常系・異常系の両方をカバーしている
+- [x] セキュリティ設定がテストされている
+- [x] 次工程（Phase 5: 統合テスト）への引き継ぎ情報が明確
 
 ## レビュー観点
 1. コード品質とスタイルの統一性
-2. エラーハンドリングの適切性
-3. セキュリティ設定
-4. 既存パターンとの整合性
+2. テストケースの網羅性
+3. エラーハンドリングの適切性
+4. セキュリティ設定
+5. 既存パターンとの整合性
 
 ## 次のステップ
-このPRがマージされたら、Phase 5（単体テスト）のIssue #5を作成してください。
+このPRがマージされたら、Phase 5（統合テスト）のIssue #5を作成してください。
 ```
 
 **ラベル**: `phase:implementation`, `status:review`
@@ -361,10 +477,13 @@ git branch -d feature/phase4-implementation
 
 Phase 4 が完了したら、以下を確認してください：
 
-- [ ] Issue #4 が作成されている
+- [ ] 実装と単体テストのIssueが作成されている
 - [ ] すべてのコード（Entity, Repository, Service, Controller, DTO, Mapper）が実装されている
-- [ ] PR #4 が作成され、マージされている
-- [ ] Issue #4 がクローズされている
+- [ ] PetHotelStayRestControllerTests が実装されている
+- [ ] 8つのテストケースがすべてパスしている
+- [ ] カバレッジレポートが生成されている（Line Coverage 85%以上、Branch Coverage 66%以上）
+- [ ] 実装と単体テストのIssueをクローズするためのPRが作成され、マージされている
+- [ ] 実装と単体テストのIssueがクローズされている
 - [ ] feature/phase4-implementation ブランチが削除されている
 
 ---
@@ -382,6 +501,31 @@ mvn clean compile
 ls target/generated-sources/annotations/org/springframework/samples/petclinic/mapper/
 ```
 
+### テストが失敗する
+
+**解決策**:
+```bash
+# MapStruct の生成クラスを再生成
+mvn clean compile
+
+# 特定のテストだけ実行して原因を特定
+mvn test -Dtest=PetHotelStayRestControllerTests#testGetPetHotelStaySuccess
+```
+
+### カバレッジが目標に達しない
+
+**解決策**:
+- カバレッジレポートで赤色の行を確認
+- シニアデベロッパーエージェントに追加のテストケースを依頼
+- エッジケースや例外ケースのテストを追加
+
+### モックが正しく動作しない
+
+**解決策**:
+- `@MockBean` アノテーションが正しいか確認
+- `given(...).willReturn(...)` の設定を確認
+- デバッグログを有効にして動作を確認
+
 ### コンパイルエラーが発生する
 
 **解決策**:
@@ -393,7 +537,7 @@ ls target/generated-sources/annotations/org/springframework/samples/petclinic/ma
 
 ## 次のステップ
 
-**Phase 4 が完了したら、[Phase 5: 単体テスト](phase5-unit-test.md)に進んでください。**
+**Phase 4 が完了したら、[Phase 5: 統合テスト](phase5-integration-test.md)に進んでください。**
 
 ---
 

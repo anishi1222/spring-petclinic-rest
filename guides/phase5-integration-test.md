@@ -1,4 +1,4 @@
-# Phase 6: 統合テスト
+# Phase 5: 統合テスト
 
 **担当エージェント**: QA マネージャー
 
@@ -8,7 +8,7 @@
 - 既存機能への影響を確認する
 - テスト報告書を作成する
 
-**前提条件**: Phase 5 (Issue #5) がマージ済みであること
+**前提条件**: Phase 4 (Issue #4) がマージ済みであること
 
 ---
 
@@ -16,11 +16,11 @@
 
 Phase 5（単体テスト）が完了したので、Phase 6（統合テスト）の Issue を作成します。
 
-**Issue Form**: `.github/ISSUE_TEMPLATE/06_integration_test.yml`
+**Issue Form**: `.github/ISSUE_TEMPLATE/05_integration_test.yml`
 
 **Issue タイトル**: `[統合テスト] ペットホテル機能の統合テスト実施`
 
-**前工程 Issue**: Phase 5 の Issue 番号を記入（例: `#5`）
+**前工程 Issue**: Phase 5 の Issue 番号を記入（例: `#4`）
 
 ---
 
@@ -230,14 +230,14 @@ git push origin feature/phase6-integration-test
 
 ### Pull Request 作成
 
-**PRタイトル**: `Phase 6: ペットホテル機能の統合テスト (#6)`
+**PRタイトル**: `Phase 5: ペットホテル機能の統合テスト (#6)`
 
 **PR説明**:
 ```markdown
-## Phase 6: 統合テスト
+## Phase 5: 統合テスト
 
 Closes #6
-Depends on: #5
+Depends on: #4
 
 ## 概要
 ペットホテル機能の統合テストを実施し、全体の品質を確認しました。

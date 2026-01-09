@@ -8,7 +8,7 @@
 - 既存パターンとの整合性を確認する
 - 設計ドキュメントを作成してPRを出す
 
-**前提条件**: Phase 1 (Issue #1) がマージ済みであること
+**前提条件**: Phase 1 (要求開発のIssueに対するPR) がマージ済みであること
 
 ---
 
@@ -154,14 +154,14 @@ git push origin feature/phase2-basic-design
 
 ### Pull Request 作成
 
-**PRタイトル**: `Phase 2: ペットホテル機能の基本設計 (#2)`
+**PRタイトル**: `Phase 2: ペットホテル機能の基本設計`
 
 **PR説明**:
 ```markdown
 ## Phase 2: 基本設計
 
-Closes #2
-Depends on: #1
+Closes #基本設計のIssue番号
+Depends on: #要求開発のIssue番号
 
 ## 概要
 ペットホテル機能のシステムアーキテクチャとエンティティモデルを設計しました。
@@ -197,7 +197,7 @@ Depends on: #1
 4. パフォーマンスへの配慮
 
 ## 次のステップ
-このPRがマージされたら、Phase 3（詳細設計）のIssue #3を作成してください。
+このPRがマージされたら、Phase 3（詳細設計）のIssueを作成してください。
 ```
 
 **ラベル**: `phase:basic-design`, `status:review`
@@ -217,10 +217,10 @@ git branch -d feature/phase2-basic-design
 
 Phase 2 が完了したら、以下を確認してください：
 
-- [ ] Issue #2 が作成されている
+- [ ] 基本設計のIssueが作成されている
 - [ ] 基本設計書 (`docs/phase2-basic-design.md`) が作成されている
-- [ ] PR #2 が作成され、マージされている
-- [ ] Issue #2 がクローズされている
+- [ ] 基本設計のIssueをクローズするためのPRが作成され、マージされている
+- [ ] 基本設計のIssueがクローズされている
 - [ ] feature/phase2-basic-design ブランチが削除されている
 
 ---

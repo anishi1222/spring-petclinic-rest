@@ -14,10 +14,9 @@
 - [ ] Phase 1: 要求開発 (Requirements Development)
 - [ ] Phase 2: 基本設計 (Basic Design)
 - [ ] Phase 3: 詳細設計 (Detailed Design)
-- [ ] Phase 4: 実装 (Implementation)
-- [ ] Phase 5: 単体テスト (Unit Testing)
-- [ ] Phase 6: 統合テスト (Integration Testing)
-- [ ] Phase 7: 受け入れ/レビュー (Acceptance/Review)
+- [ ] Phase 4: 実装と単体テスト (Implementation and Unit Testing)
+- [ ] Phase 5: 統合テスト (Integration Testing)
+- [ ] Phase 6: 受け入れ/レビュー (Acceptance/Review)
 
 ---
 
@@ -57,22 +56,22 @@
 - バリデーションルール
 - セキュリティ設定
 
-### Phase 4: 実装の場合
+### Phase 4: 実装と単体テストの場合
 - 新規作成ファイル
 - 変更したファイル
 - ビルド確認結果
 
-### Phase 5: 単体テストの場合
+### Phase 5: 統合テストの場合
 - テストファイル
 - テストシナリオ
 - テスト実行結果
 
-### Phase 6: 統合テストの場合
+### Phase 6: 受け入れ/レビューの場合
 - API統合テスト結果
 - リグレッションテスト結果
 - リリース判定
 
-### Phase 7: 受け入れ/レビューの場合
+
 - レビュー結果
 - マージ判定
 - 改善提案
@@ -105,7 +104,7 @@
 - [ ] テストデータが用意されている
 - [ ] 次のステップ：Phase 4 (実装) Issueを作成
 
-### Phase 4: 実装
+### Phase 4: 実装と単体テスト
 - [ ] 全ファイルが作成/更新されている
 - [ ] コードがコンパイルできる
 - [ ] 既存パターンに完全に従っている
@@ -115,7 +114,7 @@
 - [ ] mvn clean compile が成功する
 - [ ] 次のステップ：Phase 5 (単体テスト) Issueを作成
 
-### Phase 5: 単体テスト
+### Phase 5: 統合テスト
 - [ ] 全てのCRUD操作に対するテストが実装されている
 - [ ] 成功ケースと失敗ケースの両方がテストされている
 - [ ] MockMvcとMockitoが適切に使用されている
@@ -125,7 +124,7 @@
 - [ ] テストカバレッジが要件を満たしている
 - [ ] 次のステップ：Phase 6 (統合テスト) Issueを作成
 
-### Phase 6: 統合テスト
+### Phase 6: 受け入れ/レビュー
 - [ ] mvn clean install が成功する
 - [ ] アプリケーションが正常に起動する
 - [ ] 全ての統合テストがパスする
@@ -136,7 +135,6 @@
 - [ ] リリース判定が「承認」
 - [ ] 次のステップ：Phase 7 (受け入れ/レビュー) Issueを作成
 
-### Phase 7: 受け入れ/レビュー
 - [ ] 全ての前工程が完了している
 - [ ] コード品質レビューが完了
 - [ ] アーキテクチャ&設計レビューが完了
@@ -164,10 +162,9 @@
 - [ ] Phase 1 (要求開発) Issue: #___
 - [ ] Phase 2 (基本設計) Issue: #___
 - [ ] Phase 3 (詳細設計) Issue: #___
-- [ ] Phase 4 (実装) Issue: #___
-- [ ] Phase 5 (単体テスト) Issue: #___
-- [ ] Phase 6 (統合テスト) Issue: #___
-- [ ] Phase 7 (受け入れ/レビュー) Issue: #___
+- [ ] Phase 4 (実装と単体テスト) Issue: #___
+- [ ] Phase 5 (統合テスト) Issue: #___
+- [ ] Phase 6 (受け入れ/レビュー) Issue: #___
 
 ---
 

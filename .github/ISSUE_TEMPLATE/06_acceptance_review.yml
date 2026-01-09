@@ -1,4 +1,4 @@
-name: "工程7: 受け入れ/レビュー"
+name: "工程6: 受け入れ/レビュー"
 description: Pull Requestの最終レビューとマージ判断
 title: "[受け入れ/レビュー] "
 labels: ["phase:acceptance", "status:review"]
@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 工程7: 受け入れ/レビュー
+        ## 工程6: 受け入れ/レビュー
         この工程では、Pull Requestの最終レビューとマージ判断を行います。
         担当エージェント: **Lead**
 
@@ -16,8 +16,8 @@ body:
     id: integration_test_issue
     attributes:
       label: 統合テストIssue番号
-      description: 前工程（統合テスト）のIssue番号（複数の場合はカンマ区切りまたはスペース区切り：例 \#128, \#129 または \#128 \#129）
-      placeholder: #128 または #128, #129
+      description: 前工程（統合テスト）のIssue番号（複数の場合はカンマ区切りまたはスペース区切り：例 #125, #126 または #125 #126）
+      placeholder: "#125" または "#125, #126"
     validations:
       required: true
 

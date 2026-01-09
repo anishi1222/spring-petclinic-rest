@@ -200,14 +200,14 @@ git push origin feature/phase3-detailed-design
 
 ### Pull Request 作成
 
-**PRタイトル**: `Phase 3: ペットホテル機能の詳細設計 (#3)`
+**PRタイトル**: `Phase 3: ペットホテル機能の詳細設計`
 
 **PR説明**:
 ```markdown
 ## Phase 3: 詳細設計
 
-Closes #3
-Depends on: #2
+Closes #詳細設計のIssue番号
+Depends on: #基本設計のIssue番号
 
 ## 概要
 ペットホテル機能のREST API仕様とデータベーススキーマを詳細に設計しました。
@@ -242,7 +242,7 @@ Depends on: #2
 4. パフォーマンス考慮
 
 ## 次のステップ
-このPRがマージされたら、Phase 4（実装）のIssue #4を作成してください。
+このPRがマージされたら、Phase 4（実装）のIssueを作成してください。
 ```
 
 **ラベル**: `phase:detailed-design`, `status:review`
@@ -261,10 +261,10 @@ git branch -d feature/phase3-detailed-design
 
 Phase 3 が完了したら、以下を確認してください：
 
-- [ ] Issue #3 が作成されている
+- [ ] 詳細設計のIssueが作成されている
 - [ ] 詳細設計書 (`docs/phase3-detailed-design.md`) が作成されている
-- [ ] PR #3 が作成され、マージされている
-- [ ] Issue #3 がクローズされている
+- [ ] 詳細設計のIssueをクローズするためのPRが作成され、マージされている
+- [ ] 詳細設計のIssueがクローズされている
 - [ ] feature/phase3-detailed-design ブランチが削除されている
 
 ---

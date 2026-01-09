@@ -153,14 +153,14 @@ git push origin feature/phase5-unit-test
 
 ### Pull Request 作成
 
-**PRタイトル**: `Phase 5: ペットホテル機能の単体テスト (#5)`
+**PRタイトル**: `Phase 5: ペットホテル機能の単体テスト`
 
 **PR説明**:
 ```markdown
 ## Phase 5: 単体テスト
 
-Closes #5
-Depends on: #4
+Closes #単体テストのIssue番号
+Depends on: #実装のIssue番号
 
 ## 概要
 PetHotelStayRestController の単体テストを実装しました。
@@ -221,12 +221,12 @@ git branch -d feature/phase5-unit-test
 
 Phase 5 が完了したら、以下を確認してください：
 
-- [ ] Issue #5 が作成されている
+- [ ] 単体テストのIssueが作成されている
 - [ ] PetHotelStayRestControllerTests が実装されている
 - [ ] 8つのテストケースがすべてパスしている
 - [ ] カバレッジレポートが生成されている
-- [ ] PR #5 が作成され、マージされている
-- [ ] Issue #5 がクローズされている
+- [ ] 単体テストのIssueをクローズするためのPRが作成され、マージされている
+- [ ] 単体テストのIssueがクローズされている
 - [ ] feature/phase5-unit-test ブランチが削除されている
 
 ---
