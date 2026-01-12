@@ -70,19 +70,15 @@ git --version
 - GitHub Copilot Individual または Business
 - エージェント機能が利用可能であること
 
-### ステップ2: リポジトリのフォークとクローン
+### ステップ2: リポジトリの作成
 
-1. GitHub で [spring-petclinic-rest](https://github.com/anishi1222/spring-petclinic-rest) をフォーク
-2. ローカルにクローン：
+1. この spring-petclinic-rest リポジトリ [spring-petclinic-rest](https://github.com/anishi1222/spring-petclinic-rest) をテンプレートとして、GitHub上にリポジトリを作成します。
 
-```bash
-git clone https://github.com/YOUR_USERNAME/spring-petclinic-rest.git
-cd spring-petclinic-rest
-```
+詳細は[こちらの手順](guides/phase0-setup.md#リポジトリの作成とクローン)を参照してください。
 
 ### ステップ3: ハンズオン資料の配置
 
-このハンズオン資料をクローンしたリポジトリに配置：
+このハンズオン資料をクローンしたリポジトリに配置されています。存在することを確認してください。
 
 ```bash
 # 以下のファイルがプロジェクトルートにあることを確認
@@ -92,6 +88,8 @@ ls -la QUICK_REFERENCE.md
 ```
 
 ### ステップ4: アプリケーションの起動確認
+
+- Spring Boot PetClinic REST アプリケーションが正常に起動することを確認します。
 
 ```bash
 # ビルド
@@ -105,7 +103,7 @@ mvn spring-boot:run
 
 ### ステップ5: メインガイドを開く
 
-**HANDS_ON_GUIDE.md** を開いて、セクション1から開始してください。
+**HANDS_ON_GUIDE.md** を開いて、Phase-1から開始してください。
 
 ---
 
@@ -156,7 +154,6 @@ mvn spring-boot:run
 
 ### 必須
 - ✅ Java の基本文法
-- ✅ オブジェクト指向プログラミングの基礎
 - ✅ Git の基本操作（clone, commit, push）
 - ✅ REST API の基本概念
 
