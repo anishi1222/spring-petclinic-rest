@@ -26,4 +26,4 @@ springboot-petclinic-server/
 ./src/test/postman/reports/
 
 # VS Code settings
-.vscode/
+.vscode/*
